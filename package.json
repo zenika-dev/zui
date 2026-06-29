@@ -1,0 +1,42 @@
+{
+  "name": "@zenika/zui",
+  "version": "0.1.0",
+  "description": "Zenika UI — React component library built on Ant Design",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "peerDependencies": {
+    "antd": ">=6",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^6.2.5",
+    "@emotion/react": "^11.14.0",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/react-vite": "^8.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "antd": "^6.4.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "storybook": "^8.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
