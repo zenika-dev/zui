@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { ReactNode } from "react";
-import { Alert as AntdAlert, AlertProps as AntdAlertProps, ConfigProvider, theme } from "antd";
-import { CheckCircleOutlined, CheckCircleTwoTone, CloseCircleOutlined, CloseCircleTwoTone, ExclamationCircleOutlined, ExclamationCircleTwoTone, InfoCircleOutlined, InfoCircleTwoTone } from "@ant-design/icons";
+import { Alert as AntdAlert, AlertProps as AntdAlertProps, ConfigProvider, theme, ThemeConfig, Button as AntdBtn } from "antd";
+import { CheckCircleOutlined, CloseCircleOutlined, CloseOutlined, ExclamationCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { neutral } from "../../tokens";
 
 export interface AlertProps {
   title: ReactNode;
@@ -12,6 +13,7 @@ export interface AlertProps {
   closable?: boolean;
   onClose?: () => void;
   banner?: boolean;
+  action?: ReactNode;
 }
 
 const iconMap: Record<
@@ -34,7 +36,19 @@ const typeMap: Record<
   warning: "warning",
   error: "error",
   general: "info",
-}
+};
+const generalAlertTheme: ThemeConfig = {
+  components: {
+    Alert: {
+      colorInfoBg: neutral[50],
+    }
+  }
+};
+
+const closeIcon: ReactNode = (
+  <AntdBtn shape="circle" icon={<CloseOutlined />} size="small" />
+);
+
 
 export function Alert({
   title,
@@ -45,31 +59,21 @@ export function Alert({
   closable,
   onClose,
   banner,
+  action,
 }: AlertProps) {
   const closableProps: AntdAlertProps["closable"] = closable ? 
-    { closeIcon: true, onClose, 'aria-label': 'close' } 
-    : undefined;
+    { 
+      closeIcon, 
+      onClose, 'aria-label': 'close' 
+    } : undefined;
   const alertIcon = customIcon ? customIcon : type ? iconMap[type] : undefined;
+  const alertType = type ? typeMap[type] : undefined;
 
   return (
-    <ConfigProvider theme={{
-      components: {
-        // Alert: {
-        //   colorErrorBg: red1,
-        //   colorErrorBorder: red3,
-        //   colorInfoBg: blue1,
-        //   colorInfoBorder: blue3,
-        //   colorSuccessBg: green1,
-        //   colorSuccessBorder: green3,
-        //   colorWarningBg: orange1,
-        //   colorWarningBorder: orange3,
-        //   borderRadiusLG: 2,
-        // }
-      }
-    }}>
+    <ConfigProvider theme={type === "general" ? generalAlertTheme : undefined}>
       <AntdAlert
         title={title}
-        type={typeMap[type]}
+        type={alertType}
         description={description}
         icon={alertIcon}
         closable={closableProps}
@@ -80,6 +84,7 @@ export function Alert({
             fontWeight: 600,
           },
         }}
+        action={action}
       />
     </ConfigProvider>
   );

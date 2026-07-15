@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Alert } from "./Alert";
 import { FacebookOutlined } from "@ant-design/icons";
+import { Button } from "../Button";
 
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
@@ -66,6 +67,18 @@ export const Closable: Story = {
     title: "This alert can be dismissed.",
     type: "success",
     closable: true,
+  },
+};
+
+export const WithAction: Story = {
+  args: {
+    title: "This alert is has an action",
+    type: "general",
+    banner: true,
+    closable: true,
+    description: "This is a more detailed description of the alert content.",
+    customIcon: <FacebookOutlined />,
+    action: <Button onClick={() => alert("action clicked")}>Check Posts</Button>
   },
 };
 
